@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Timesheet{% endblock %}
+{% block content %}
+
+
+<!-- Header -->
+<!-- Header -->
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-white d-inline-block mb-0">Timesheet</h6>
+        </div>
+        </nav>
+        <div class="col-lg-6 col-5 text-right">
+          <a href="{% url 'novo' %}" class="btn btn-sm btn-neutral">Novo Dia</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--5">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <!-- Card header -->
+        <div class="table-responsive py-4">
+          <table class="table table-flush" id="datatable-buttons">
+            <thead class="thead-light">
+              <tr>
+                <th>Data</th>
+                <th>Serviço</th>
+		<th>Unidade Móvel</th>
+                <th>Zona</th>
+                <th>Médico</th>
+                <th>Hora Entrada</th>
+                <th>Início Almoço</th>
+                <th>Fim Almoço</th>
+                <th>Hora Saída</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Data</th>
+                <th>Serviço</th>
+		<th>Unidade Móvel</th>
+                <th>Zona</th>
+                <th>Médico</th>
+                <th>Hora Entrada</th>
+                <th>Início Almoço</th>
+                <th>Fim Almoço</th>
+                <th>Hora Saída</th>
+                <th>Total</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for ci in c %}
+              <tr>
+                <td>
+                  <a class="" href="{% url 'update' ci.id %}">{{ci.data|date:"d/m/y"}}</a>
+                </td>
+                <td>{% for servico in ci.servico.all %}
+                  {{servico}}{% if not forloop.last %}, {% endif %}
+                  {% endfor %}</td>
+		<td>{{ci.get_carro_display}}</td>
+                <td>{{ci.zona}}</td>
+                <td>{{ci.medico}}</td>
+                <td id="entrada">{{ci.entrada|date:"H:i"}}</td>
+                <td id="almoco">{{ci.almoco|date:"H:i"}}</td>
+                <td id="almocofim">{{ci.almoco_fim|date:"H:i"}}</td>
+                <td id="saida">{{ci.saida|date:"H:i"}}</td>
+                <td id="total">{{ ci.total_time }}</td>
+                {% endfor %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+  {% block js %}
+  {{ block.super }}
+
+  <!-- DataTables-->
+  <script src="{% static 'tracker/assets/vendor/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-buttons/js/buttons.flash.min.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-buttons/js/pdfmake.min.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-buttons/js/vfs_fonts.js' %}"></script>
+  <script src="{% static 'tracker/assets/vendor/datatables.net-select/js/dataTables.select.min.js' %}"></script>
+
+  {% endblock %}

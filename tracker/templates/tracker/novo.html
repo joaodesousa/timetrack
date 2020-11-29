@@ -1,0 +1,128 @@
+{% extends 'base.html' %} {% load static %} {% load widget_tweaks %} {% block title %}Novo{% endblock %}
+{% block content %}
+<!-- Header -->
+<div class="header pb-3 d-flex align-items-center" style="
+    min-height: 200px;
+    background-size: cover;
+    background-position: center top;
+  ">
+  <!-- Mask -->
+  <span class="mask bg-gradient-default opacity-8"></span>
+  <!-- Header container -->
+  <div class="container-fluid d-flex align-items-center">
+    <div class="row">
+      <div class="col">
+        <h1 class="display-2 text-white">Novo</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+  <div class="row">
+    <div class="col">
+      <div class="row"></div>
+      <div class="card">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col-8">
+              <h3 class="mb-0">Novo</h3>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Address -->
+          <h6 class="heading-small text-muted mb-4">Detalhes</h6>
+          <form method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Data</label>
+                  {{form.data|add_class:"form-control"|attr:"placeholder:01-01-2020"|attr:"autocomplete:off"}}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Hora Entrada</label>
+                  {{form.entrada}}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Hora Saída</label>
+                  {{form.saida}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Almoço</label>
+                  {{form.almoco}}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Fim do Almoço</label>
+                  {{form.almoco_fim}}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Zona</label>
+                  {{form.zona}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Médico</label>
+                  {{form.medico}}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Serviço</label>
+                  {{form.servico}}
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-control-label" for="input-username">Carro Próprio</label>
+                  {{form.carro}}
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Adicionar</button>
+          </form>
+        </div>
+      </div>
+      {{ form.errors }}
+    </div>
+  </div>
+
+{% endblock %} {% block js %} {{ block.super }}
+<script src="{% static 'tracker/assets/vendor/select2/dist/js/select2.min.js' %}"></script>
+<script src="{% static 'tracker/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
+<script src="{% static 'tracker/assets/vendor/moment.min.js' %}"></script>
+<script type="text/javascript">
+  $(function () {
+    $("#datetimepicker1").datetimepicker({
+      format: "mm/dd/yyyy",
+      icons: {
+        time: "fa fa-clock",
+        date: "fa fa-calendar-day",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: "fa fa-chevron-left",
+        next: "fa fa-chevron-right",
+        today: "fa fa-screenshot",
+        clear: "fa fa-trash",
+        close: "fa fa-remove",
+      },
+    });
+  });
+</script>
+{% endblock %}
